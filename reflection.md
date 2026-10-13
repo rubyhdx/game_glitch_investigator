@@ -5,6 +5,9 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 1. What was broken when you started?
 
 - What did the game look like the first time you ran it?
+
+  The game logic does not work as intended, the restart button does not work and the attempts are not calculated not consistent.
+
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
 
@@ -31,8 +34,16 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
+
+  I used Claude Code.
+
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+
+  Correct suggestion: The AI said the hint was backwards because check_guess returned "Go HIGHER!" when the guess was above the secret. It also said that converting the secret to a string on even attempts caused the TypeError. I swapped the two hint messages and removed the string conversion and the TypeError fallback. This was correct because a guess above the secret needs "Go LOWER!", and comparing an int to a str was the real cause. To verify it, I re-ran the game and tested with different inputs to verify the result was correct.
+
 - Give one example of an AI suggestion you did not accept as written (including what the AI suggested, why you rejected or changed it, and how you verified your version). It does not have to be a suggestion that was wrong: over-engineered, out of scope, harder to read, or a poor fit for this codebase all count.
+
+  Suggestion I changed: The AI suggested rejecting guesses outside the difficulty's range, which is 1 to 100 on Normal, 1 to 20 on Easy, and 1 to 50 on Hard, and not counting those entries as attempts. I said the input range should be 0 to 100, and I told the AI so. I kept the difficulty ranges because the game's screen says "between 1 and 100" and the ranges differ by difficulty, so the rules match what the player sees. To verify it, I re-ran wrong input in the game and got correct input message when the input is not in range or not a number.
 
 ---
 
