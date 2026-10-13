@@ -10,7 +10,6 @@ def get_range_for_difficulty(difficulty: str):
         return 1, 50
     return 1, 100
 
-# FIXME: missing input validation
 def parse_guess(raw: str):
     if raw is None:
         return False, None, "Enter a guess."
@@ -132,14 +131,17 @@ if st.session_state.status != "playing":
     st.stop()
 
 if submit:
-    st.session_state.attempts += 1
-
     ok, guess_int, err = parse_guess(raw_guess)
+
+    if ok and not (low <= guess_int <= high):
+        ok = False
+        err = f"Enter a number between {low} and {high}."
 
     if not ok:
         st.session_state.history.append(raw_guess)
         st.error(err)
     else:
+        st.session_state.attempts += 1
         st.session_state.history.append(guess_int)
 
         outcome, message = check_guess(guess_int, st.session_state.secret)
