@@ -10,7 +10,7 @@ def get_range_for_difficulty(difficulty: str):
         return 1, 50
     return 1, 100
 
-
+# FIXME: missing input validation
 def parse_guess(raw: str):
     if raw is None:
         return False, None, "Enter a guess."
@@ -28,7 +28,7 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-
+# FIXME: incorrect hint to guesses
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
@@ -37,7 +37,7 @@ def check_guess(guess, secret):
         return "Too High", "📉 Go LOWER!"
     return "Too Low", "📈 Go HIGHER!"
 
-
+# FIXME: inconsistent score calculation
 def update_score(current_score: int, outcome: str, attempt_number: int):
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
@@ -83,6 +83,7 @@ st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
+# FIXME: attempt start at 1
 if "attempts" not in st.session_state:
     st.session_state.attempts = 1
 
@@ -121,7 +122,8 @@ with col2:
     new_game = st.button("New Game 🔁")
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
-
+    
+# FIXME: new game not resetting the state
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(1, 100)
