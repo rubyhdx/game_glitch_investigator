@@ -64,9 +64,9 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 ## 🧪 Test Results
 
 ```
-pytest tests -q
-....                                                                             [100%]
-4 passed in 0.00s
+pytest -q
+..................                                                       [100%]
+18 passed in 0.01s
 ```
 
 ## 🚀 Stretch Features
