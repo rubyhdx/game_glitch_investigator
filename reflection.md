@@ -68,11 +68,22 @@ Document at least 3 bugs you found. Add rows as needed.
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+  Streamlit reruns the whole script every time you click or type, so normal variables reset each time. st.session_state keeps values like the secret, score, and status between reruns. In this game, the secret number, attempts, score, and status live there, so they stay put while the page reloads. When New Game didn't work, the status stayed "lost" in session state, so the page kept showing "Game over." Changing the text box's key gave it a fresh, empty box.
+
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+
+  After a refactor, I want to check that the tests still test the right thing, not only that they pass. In this project, three tests failed because they expected a string, and I had to decide whether to change the tests or the function. I'll also be specific when I ask AI for a change, like naming the exact function and the exact behavior I want, so I can tell whether the result is what I asked for.
+
 - What is one thing you would do differently next time you work with AI on a coding task?
+
+  I'd run the app after each fix before I committed it. Some of my fixes were only checked by reading the code and compiling, so I didn't know they worked until I tested them. 
+
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+  AI generated code can look correct and still have bugs, like the hints that pointed the wrong way without any error message. I now treat AI code as a draft that I need to test and read carefully before I trust it.
+
