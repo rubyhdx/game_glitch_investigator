@@ -28,9 +28,12 @@
 
 | Edge Case | Prompt Used | AI-Suggested Test | Did It Pass? | Your Reasoning |
 |-----------|-------------|-------------------|--------------|----------------|
-| | | | | |
-| | | | | |
-| | | | | |
+| Negative number (`-5`) | Challenge 1 instructions: identify edge-case inputs and generate pytest cases for them. Follow-up: "we just need pytest." | `test_negative_guess_parses_and_hints_higher` | Yes | Negative guesses are outside the valid range and are a likely input mistake. |
+| Decimal (`3.7`) | Same as above | `test_decimal_guess_truncates_to_int` | Yes | The parser turns decimals into ints, so it silently truncates them and that should be tested. |
+| Very large number (`99999999999999999999`) | Same as above | `test_huge_guess_is_too_high_without_crashing` | Yes | Checks that a huge number parses and is treated as too high instead of crashing. |
+| Non-numeric text (`abc`, `1e3`, `nan`, `inf`, `12abc`) | Same as above | `test_non_numeric_input_returns_error` | Yes | Text like `1e3`, `nan`, and `inf` looks numeric but should still be rejected. |
+| Empty input (`""`, `None`) | Same as above | `test_empty_input_asks_for_a_guess` | Yes | An empty submit is the most common blank input. |
+| Difficulty range (unknown difficulty) | Same as above | `test_range_for_each_difficulty` | Yes | Confirms each difficulty's bounds and the 1 to 100 fallback for unknown values. |
 
 ---
 
