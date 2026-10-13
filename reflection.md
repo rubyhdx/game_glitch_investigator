@@ -50,10 +50,18 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
+
+  For logic bugs, I checked with pytest. Three of the four tests were failing at first, because they expected a plain string and check_guess returns an (outcome, message) pair. I updated those tests to unpack the pair, and all four now pass. For the UI bugs, like New Game and clearing the input, I checked that the code compiles and read through the change, and then I replayed a full game, lost, clicked New Game, and confirmed the input was empty and the attempts counter reset.
+
+- Describe at least one test you ran (manual or using pytest) and what it showed you about your code.
+
+  I added test_wrong_guess_always_costs_five_points. It checks that a "Too High" guess subtracts 5 points on every attempt from 1 to 8. It passes on the fixed code, and it showed me that the score was consistent across attempts. I reasoned that the test would have failed on the old code, which added 5 points on even attempts. 
+
+  I think it showed me that the code must be correctly behaved for the right test to pass, and for the right code to pass, the test must be correctly written. It goes both ways. 
+
 - Did AI help you design or understand any tests? How?
 
+  Yes. The AI helped me find why the bare pytest command couldn't import logic_utils. It suggested adding a pytest.ini file with pythonpath = ., and I checked that pytest passed from the project folder and from inside tests/. The AI also helped me see that the three failing check_guess tests expected the wrong return type. I chose to update the tests, not the function, because the app uses the message too.
 ---
 
 ## 4. What did you learn about Streamlit and state?
